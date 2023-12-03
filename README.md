@@ -39,6 +39,7 @@ Existem várias maneiras de executar uma aplicação Spring Boot em sua máquina
 - Descompacte o arquivo zip (se você baixou um);
 - Abra o Prompt de Comando e altere o diretório (cd) para a pasta que contém o pom.xml;
 - Importe o projeto conforme as especificidades de sua IDE;
+- Crie o usuário para o banco de dados, conforme acima ou atualize os dados de usuário e senha no arquivo application.properties;
 - Escolha o arquivo Spring Boot Application (procure por @SpringBootApplication)
  - Clique com o botão direito do mouse no arquivo e execute como aplicativo Java
 
@@ -46,7 +47,14 @@ Alternativamente, você pode usar o plugin Spring Boot Maven como segue:
 
 `mvn spring-boot:run`
 
-Utilize o postman, insomnia ou ferramentas equivalentes para testar as funcionalidades
+Utilize o postman, insomnia ou ferramentas equivalentes para testar as funcionalidades.
+
+Obs.: 
+- A fim de facilitar os testes, na inicialização da aplicação são carregados dados fictícios para as entidades Person (pessoa) e Package (Pacote);
+- Os Ids válidos para cliente (costumerId) são: 1 a 9
+- Os Ids válidos para entregador (deliverPersonId) são: 1, 5 e 8 
+- Os Ids válidos para pacote (packageId) são: 1 a 6
+
 ```
 * Endpoints
 GET [/api/deliveries/{id}]
@@ -59,10 +67,8 @@ GET [/api/deliveries/]
   - create:
 
 {
-  "action": "CREATE",
-  "itemId": 1,
-  "costumerId": 1,
-  "costumerId": 1,
+  "pacakgeId": 1,
+  "costumerId": 1,  
   "note": "Registro de Entrega."
 }
 
