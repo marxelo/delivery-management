@@ -12,7 +12,7 @@ VALUES
 
 
 
-INSERT INTO item (description)
+INSERT INTO package (items)
 VALUES
   ('4 velas weg, 1 amortedor cofap'),
   ('4 pneus 205/55 R16, 1 jogo de velas de ignição'),

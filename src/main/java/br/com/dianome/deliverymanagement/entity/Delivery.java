@@ -38,8 +38,9 @@ public class Delivery implements Serializable {
 
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "item_id", referencedColumnName = "id", nullable = true)
-    private Item item;
+    @JoinColumn(name = "package_id", referencedColumnName = "id", nullable = true)
+    private Pakage pakage;
+    // 'Pakage' is written this way because 'Package' is a java reserved keyword.
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "costumer_id", referencedColumnName = "id", nullable = true)

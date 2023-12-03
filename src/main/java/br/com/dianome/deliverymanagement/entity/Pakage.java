@@ -11,9 +11,10 @@ import jakarta.persistence.Table;
 import lombok.Data;
 
 @Data
-@Table(name = "item")
+@Table(name = "package")
 @Entity
-public class Item implements Serializable {
+public class Pakage implements Serializable {
+    // 'Pakage' is written this way because 'Package' is a java reserved keyword.
 
     private static final long serialVersionUID = 3L;
 
@@ -22,8 +23,8 @@ public class Item implements Serializable {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "description")
-    private String description;
+    @Column(name = "items")
+    private String items;
 
     
 }

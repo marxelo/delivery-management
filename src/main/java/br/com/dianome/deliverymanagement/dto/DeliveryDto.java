@@ -8,7 +8,7 @@ public class DeliveryDto {
 
     Action action;
 
-    private Long itemId;
+    private Long packageId;
 
     private Long costumerId;
 

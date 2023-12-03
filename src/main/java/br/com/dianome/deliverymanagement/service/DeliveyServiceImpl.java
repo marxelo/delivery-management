@@ -10,12 +10,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import br.com.dianome.deliverymanagement.dao.DeliveryRepository;
-import br.com.dianome.deliverymanagement.dao.ItemRepository;
+import br.com.dianome.deliverymanagement.dao.PakageRepository;
 import br.com.dianome.deliverymanagement.dao.PersonRepository;
 import br.com.dianome.deliverymanagement.dto.DeliveryDto;
 import br.com.dianome.deliverymanagement.entity.Delivery;
 import br.com.dianome.deliverymanagement.entity.DeliveryEvent;
-import br.com.dianome.deliverymanagement.entity.Item;
+import br.com.dianome.deliverymanagement.entity.Pakage;
 import br.com.dianome.deliverymanagement.entity.Person;
 import br.com.dianome.deliverymanagement.enums.Action;
 import br.com.dianome.deliverymanagement.enums.BooleanValue;
@@ -29,10 +29,10 @@ public class DeliveyServiceImpl implements DeliveryService {
 
     private PersonRepository personRepository;
 
-    private ItemRepository orderRepository;
+    private PakageRepository orderRepository;
 
     public DeliveyServiceImpl(DeliveryRepository deliveryRepository, PersonRepository personRepository,
-            ItemRepository orderRepository) {
+            PakageRepository orderRepository) {
         this.deliveryRepository = deliveryRepository;
         this.personRepository = personRepository;
         this.orderRepository = orderRepository;
@@ -52,21 +52,23 @@ public class DeliveyServiceImpl implements DeliveryService {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Cliente informado não cadastrado.");
         }
 
-        Optional<Item> item = orderRepository.findById(deliveryDto.getItemId());
+        Optional<Pakage> pakage = orderRepository.findById(deliveryDto.getPackageId());
 
-        if (item.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Ordem informada não cadastrada.");
+        if (pakage.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Pacote informado não cadastrado.");
         }
 
         delivery.setCostumer(costumer.get());
         delivery.setStatus(Status.CREATED);
+
+        System.out.println(pakage.get().toString());
 
         LocalDateTime localDateTime = LocalDateTime.now();
         delivery.setDateCreated(localDateTime);
         delivery.setLastUpdated(localDateTime);
         delivery.setNote(deliveryDto.getNote());
         delivery.setIsDeleted(BooleanValue.FALSE);
-        delivery.setItem(item.get());
+        delivery.setPakage(pakage.get());
 
         DeliveryEvent deliveryEvent = createDeliveryEvent(deliveryDto, delivery);
 
