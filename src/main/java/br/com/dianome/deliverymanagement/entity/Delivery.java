@@ -31,14 +31,18 @@ public class Delivery implements Serializable {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @JsonIgnore
     private Long id;
 
     @Column(name = "tracking_code")
     private String trackingCode;
 
+
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "costumer_id", referencedColumnName = "id")
+    @JoinColumn(name = "item_id", referencedColumnName = "id", nullable = true)
+    private Item item;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "costumer_id", referencedColumnName = "id", nullable = true)
     private Person costumer;
 
     @OneToOne(cascade = CascadeType.ALL)
