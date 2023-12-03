@@ -2,9 +2,9 @@ package br.com.dianome.deliverymanagement.entity;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.annotations.CreationTimestamp;
-// import org.hibernate.annotations.Type;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -44,7 +44,7 @@ public class Delivery implements Serializable {
     private Person costumer;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "delivery_person_id", referencedColumnName = "id")
+    @JoinColumn(name = "delivery_person_id", referencedColumnName = "id", nullable = true)
     private Person deliveryPerson;
 
     @Column(name = "date_created")
@@ -69,4 +69,14 @@ public class Delivery implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "delivery")
     @JsonManagedReference
     private List<DeliveryEvent> events;
+    //   private Set<DeliveryEvent> events = new HashSet<>();
+
+
+    public void add(DeliveryEvent event) {
+        if (events == null) {
+            events =  new ArrayList<>();
+        }
+        events.add(event);
+        event.setDelivery(this);
+    }
 }

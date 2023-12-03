@@ -6,7 +6,8 @@ public enum Status {
     IN_TRANSIT("Em trânsito"),
     DELIVERED("Entregue"),
     RETURNED("Devolvida"),
-    CANCELED("Cancelada");
+    CANCELED("Cancelada"),
+    DELETED("Deletada");
 
     private final String description;
 

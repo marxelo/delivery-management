@@ -14,7 +14,10 @@ public interface DeliveryRepository extends JpaRepository<Delivery, Long> {
 
 //  isDeleted = 0 -> false (not deleted)
 
-    @Query("select r, e from Delivery r join r.events e where r.isDeleted = 0 ")
+    // @Query("select r, e from Delivery r join r.events e where r.isDeleted = 0 ")
+    @Query("select r from Delivery r where r.isDeleted = 0 ")
     List<Delivery> findAllNonDeleted();
+    
+    Delivery findByTrackingCode(String trackingCode);
 
 }
