@@ -15,7 +15,7 @@ Para implementação do controle de pacotes foram criadas quatro entidades: entr
 - Eventos: Marcos históricos do ciclo de vida de uma entrega.
 
 O projeto contém as funções básicas de CRUD para uma entrega:
-- Create: cria uma entrega a partir de um código de pacote e de destinário e retorna os dados da entrega criada, inclusive o código de rastreamento;
+- Create: cria uma entrega a partir de um código de pacote e de destinatário e retorna os dados da entrega criada, inclusive o código de rastreamento;
 - Update: permite registrar o entregador designado para a entrega e as movimentações da entrega, por exemplo, saída para entrega, pacote entregue, recusado, etc. Em cada atualização é possível registrar uma observação para a entrega;
 - Recover:
   - Listar: Lista todas as entregas não deletadas logicamente;
