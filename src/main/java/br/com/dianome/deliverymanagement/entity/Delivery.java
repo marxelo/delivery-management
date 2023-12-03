@@ -4,9 +4,6 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import br.com.dianome.deliverymanagement.enums.BooleanValue;
@@ -34,6 +31,7 @@ public class Delivery implements Serializable {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonIgnore
     private Long id;
 
     @Column(name = "tracking_code")
@@ -48,11 +46,9 @@ public class Delivery implements Serializable {
     private Person deliveryPerson;
 
     @Column(name = "date_created")
-    @CreationTimestamp
     private LocalDateTime dateCreated;
 
     @Column(name = "last_updated")
-    @UpdateTimestamp
     private LocalDateTime lastUpdated;
 
     @Column(name = "status")
@@ -69,7 +65,6 @@ public class Delivery implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "delivery")
     @JsonManagedReference
     private List<DeliveryEvent> events;
-    //   private Set<DeliveryEvent> events = new HashSet<>();
 
 
     public void add(DeliveryEvent event) {

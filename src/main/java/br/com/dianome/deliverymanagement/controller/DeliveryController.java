@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.dianome.deliverymanagement.dao.DeliveryRepository;
 import br.com.dianome.deliverymanagement.dto.DeliveryDto;
-import br.com.dianome.deliverymanagement.dto.DeliveryResponse;
 import br.com.dianome.deliverymanagement.entity.Delivery;
 import br.com.dianome.deliverymanagement.service.DeliveryService;
 
@@ -35,12 +34,13 @@ public class DeliveryController {
     }
 
     @PostMapping("/create")
-    public DeliveryResponse registerDelivery(@RequestBody DeliveryDto deliveryDAO) {
+    public Delivery registerDelivery(@RequestBody DeliveryDto deliveryDAO) {
         System.out.println(deliveryDAO.toString());
 
-        DeliveryResponse deliveryResponse = deliveryService.registerDelivery(deliveryDAO);
+        // DeliveryResponse deliveryResponse = deliveryService.registerDelivery(deliveryDAO);
+        Delivery delivery = deliveryService.registerDelivery(deliveryDAO);
 
-        return deliveryResponse;
+        return delivery;
 
     }
 
@@ -64,21 +64,21 @@ public class DeliveryController {
     }
 
     @PutMapping("/update")
-    public DeliveryResponse updateDelivery(@RequestBody DeliveryDto deliveryDAO) {
+    public Delivery updateDelivery(@RequestBody DeliveryDto deliveryDAO) {
 
-        DeliveryResponse deliveryResponse = deliveryService.updateDelivery(deliveryDAO);
+        Delivery delivery = deliveryService.updateDelivery(deliveryDAO);
 
-        return deliveryResponse;
+        return delivery;
 
     }
 
 
     @DeleteMapping("/delete")
-    public DeliveryResponse deleteDelivery(@RequestBody DeliveryDto deliveryDAO) {
+    public ResponseEntity<Object> deleteDelivery(@RequestBody DeliveryDto deliveryDAO) {
 
-        DeliveryResponse deliveryResponse = deliveryService.deleteDelivery(deliveryDAO);
+        // deliveryService.deleteDelivery(deliveryDAO);
 
-        return deliveryResponse;
+        return deliveryService.deleteDelivery(deliveryDAO);
 
     }
 

@@ -1,12 +1,14 @@
 package br.com.dianome.deliverymanagement.service;
 
+import org.springframework.http.ResponseEntity;
+
 import br.com.dianome.deliverymanagement.dto.DeliveryDto;
-import br.com.dianome.deliverymanagement.dto.DeliveryResponse;
+import br.com.dianome.deliverymanagement.entity.Delivery;
 
 public interface DeliveryService {
-    DeliveryResponse registerDelivery(DeliveryDto deliveryDto);
+    Delivery registerDelivery(DeliveryDto deliveryDto);
 
-    DeliveryResponse updateDelivery(DeliveryDto deliveryDtO);
+    Delivery updateDelivery(DeliveryDto deliveryDtO);
 
-    DeliveryResponse deleteDelivery(DeliveryDto deliveryDtO);
+    ResponseEntity<Object>  deleteDelivery(DeliveryDto deliveryDtO);
 }

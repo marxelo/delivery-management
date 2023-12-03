@@ -4,12 +4,13 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.UUID;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import br.com.dianome.deliverymanagement.dao.DeliveryRepository;
 import br.com.dianome.deliverymanagement.dao.PersonRepository;
 import br.com.dianome.deliverymanagement.dto.DeliveryDto;
-import br.com.dianome.deliverymanagement.dto.DeliveryResponse;
 import br.com.dianome.deliverymanagement.entity.Delivery;
 import br.com.dianome.deliverymanagement.entity.DeliveryEvent;
 import br.com.dianome.deliverymanagement.entity.Person;
@@ -33,7 +34,7 @@ public class DeliveyServiceImpl implements DeliveryService {
 
     @Override
     @Transactional
-    public DeliveryResponse registerDelivery(DeliveryDto deliveryDto) {
+    public Delivery registerDelivery(DeliveryDto deliveryDto) {
 
         Delivery delivery = new Delivery();
 
@@ -44,8 +45,9 @@ public class DeliveyServiceImpl implements DeliveryService {
         delivery.setCostumer(costumer.get());
         delivery.setStatus(Status.CREATED);
 
-        delivery.setDateCreated(LocalDateTime.now());
-        delivery.setLastUpdated(LocalDateTime.now());
+        LocalDateTime localDateTime = LocalDateTime.now();
+        delivery.setDateCreated(localDateTime);
+        delivery.setLastUpdated(localDateTime);
         delivery.setNote(deliveryDto.getNote());
         delivery.setIsDeleted(BooleanValue.FALSE);
 
@@ -54,12 +56,12 @@ public class DeliveyServiceImpl implements DeliveryService {
         delivery.add(deliveryEvent);
         deliveryRepository.save(delivery);
         
-        return new DeliveryResponse(delivery.getTrackingCode());
+        return delivery;
     }
 
     @Override
     @Transactional
-    public DeliveryResponse updateDelivery(DeliveryDto deliveryDto) {
+    public Delivery updateDelivery(DeliveryDto deliveryDto) {
 
         Delivery delivery = deliveryRepository.findByTrackingCode(deliveryDto.getTrackingCode());
 
@@ -105,7 +107,7 @@ public class DeliveyServiceImpl implements DeliveryService {
         DeliveryEvent deliveryEvent = createDeliveryEvent(deliveryDto, delivery);
         delivery.add(deliveryEvent);
 
-        return new DeliveryResponse(delivery.getTrackingCode());
+        return delivery;
     }
 
     private DeliveryEvent createDeliveryEvent(DeliveryDto deliveryDto, Delivery delivery) {
@@ -120,12 +122,12 @@ public class DeliveyServiceImpl implements DeliveryService {
 
     @Override
     @Transactional
-    public DeliveryResponse deleteDelivery(DeliveryDto deliveryDto) {
+    public ResponseEntity<Object>  deleteDelivery(DeliveryDto deliveryDto) {
         deliveryDto.setAction(Action.DELETE);
 
         updateDelivery(deliveryDto);
 
-        return new DeliveryResponse(deliveryDto.getTrackingCode());
+        return ResponseEntity.status(HttpStatus.OK).body("Entrega excluída.");
     }
 
     private void handleNoteUpdate(DeliveryDto deliveryDto, Delivery delivery) {
